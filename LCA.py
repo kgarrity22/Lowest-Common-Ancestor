@@ -4,10 +4,6 @@
 # originally found on https://www.techiedelight.com/find-lowest-common-ancestor-lca-two-nodes-binary-tree/
 
 
-
-
-# this is where the LCA function will be
-
 class Node:
 
 	# A utility function to create a new node
