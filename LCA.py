@@ -4,16 +4,41 @@
 # originally found on https://www.techiedelight.com/find-lowest-common-ancestor-lca-two-nodes-binary-tree/
 
 
-class Node:
+# class Node:
+#
+# 	# A utility function to create a new node
+# 	def __init__(self, key):
+# 		self.data = key
+# 		self.left = None
+# 		self.right = None
+#
+# 	def __repr__(self):
+# 		return str(self.data)
 
-	# A utility function to create a new node
-	def __init__(self, key):
-		self.data = key
+# def create_tree_with_root_X(x):
+# 	root = Node(x)
+# 	root.left = Node()
+# 	root.right = Node()
+
+class Tree:
+	def __init__(self):
 		self.left = None
 		self.right = None
+		self.data = None
 
-	def __repr__(self):
-		return str(self.data)
+def create_tree(): ## this might work but it will involve inputing each data value - will take longer
+
+	root = Tree()
+	#root.data = "root"
+	# root.left = Tree()
+	# root.right = Tree()
+
+
+
+
+
+
+
 
 # This function returns pointer to LCA of two given values n1 and n2
 # This function also verify that n1 and n2 are present in Binary Tree
