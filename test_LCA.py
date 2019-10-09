@@ -10,6 +10,21 @@ import LCA as lca
 # create class where we will write test functions
 class TestLCA(unittest.TestCase):
 
+    def test_regular_tree(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca(root, 6, 7).data
+        expected = 3
+
+        # check for expected output
+        self.assertEqual(expected, result)
+
     # Test if it works when neither node is in the tree
     def test_LCA_for_input_not_in_tree(self):
 
@@ -136,17 +151,88 @@ class TestLCA(unittest.TestCase):
 
 
 
-    # def test_tree_with_random_empty_nodes(self):
+    def test_tree_with_random_empty_nodes(self):
 
 
-    # def test_tree_where_you_dont_call_root_but_call_its_value_instead(self):
-    #         # i dont know if we have to succeed with this function or not but i'll check with david
-    #
-    #
+        root = lca.Node(100)
+        root.left = lca.Node()
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(38)
+        root.left.right = lca.Node()
+        root.right.left = lca.Node(3.4)
+        root.right.right = lca.Node()
+        root.right.right.right = lca.Node(95)
+        root.right.left.right = lca.Node(7)
+        root.left.right.left = lca.Node()
+        root.left.right.left.left = lca.Node(46)
+
+        result = lca.find_lca(root, 46, 38).data
+        expected = None
+
+        self.assertEqual(expected, result)
+
+        result2 = lca.find_lca(root, 7, 95).data
+        expected2 = 3
+
+
+# NOTE this ia a unique case where it doesn't work if we have None as the second input, but it will give us the
+        result3 = lca.find_lca(root, root.left, 38).data
+        expected3 = None
+
+        self.assertEqual(expected3, result3)
 
 
 
-# currently fails since there is no tree and there is no saved LCA function file
+
+
+# i dont know if we have to succeed with this function or not but i'll check with david
+    def test_tree_where_you_dont_call_root_but_call_its_value_instead(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca(lca.Node(1), 6, 7).data
+        expected = 3
+
+        self.assertEqual(expected, result)
+# okay this fails when you don't call root in the finc_lca function... is this an issue or just required syntax?
+# maybe should have a statement that deals with incorrect input?
+
+    def test_tree_with_one_none_input(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca(root, 7, None).data
+        expected = None
+
+        self.assertEqual(expected, result)
+
+    def test_search_for_None_inputs(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca(None, None, None).data
+        expected = None
+
+        self.assertEqual(expected, result)
+
+
+
+
 
 
 

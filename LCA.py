@@ -18,23 +18,7 @@ class Node:
 	def __repr__(self):
 		return str(self.data)
 
-# def create_tree_with_root_X(x):
-# 	root = Node(x)
-# 	root.left = Node()
-# 	root.right = Node()
 
-# class Tree:
-# 	def __init__(self):
-# 		self.left = None
-# 		self.right = None
-# 		self.data = None
-#
-# def create_tree(): ## this might work but it will involve inputing each data value - will take longer
-#
-# 	root = Tree()
-# 	#root.data = "root"
-# 	# root.left = Tree()
-# 	# root.right = Tree()
 
 
 
@@ -91,23 +75,3 @@ def find_lca(root, n1, n2):
 		return lca
 	else:
 		return Node(None)
-
-# if __name__ == '__main__':
-# 	root = Node(1)
-# 	root = Node(1)
-# 	root.left = Node(2)
-# 	root.right = Node(3)
-# 	root.left.left = Node(4)
-# 	root.left.right = Node(5)
-# 	root.right.left = Node(6)
-# 	root.right.right = Node(7)
-#
-# 	print("LCA(4,5) = ", find_lca(root, 4, 5).data)
-# 	print("LCA(4,6) = ", find_lca(root, 4, 6).data)
-# 	print("LCA(3,4) = ", find_lca(root, 3, 4).data)
-# 	print("LCA(2,4) = ", find_lca(root, 2, 4).data)
-# 	print("LCA(6,7) = ", find_lca(root, 6, 7).data)
-# 	print("LCA(6,33) = ", find_lca(root, 6, 33).data)
-# 	print("LCA(8,33) = ", find_lca(root, 8, 33).data)
-
-# This code is contributed by Sumit Bhardwaj
