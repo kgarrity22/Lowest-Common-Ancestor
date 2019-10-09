@@ -1,6 +1,6 @@
 # Testing LCA function
 
-
+# *** can run more than one test in the same function
 
 # import the unittest function
 import unittest
@@ -79,10 +79,70 @@ class TestLCA(unittest.TestCase):
 		root = lca.Node()
 
 		result = lca.find_lca(root, root, root).data
-		expected = 0
+		expected = None
 
 		self.assertEqual(expected, result)
 
+
+    def test_string_tree(self):
+        # test code for a tree with strings in nodes
+
+        root = lca.Node("pizza")
+        root.left = lca.Node("Software Engineering")
+        root.right = lca.Node("autumn")
+        root.left.left = lca.Node("Alaska")
+        root.left.right = lca.Node("salt")
+        root.right.left = lca.Node("city")
+        root.right.right = lca.Node("sidewalk")
+
+        result = lca.find_lca(root, "city", "Software Engineering").data
+        expected = "pizza"
+
+        self.assertEqual(expected, result)
+
+        result2 = lca.find_lca(root, "salt", "Alaska").data
+        expected2 = "Software Engineering"
+
+        self.assertEqual(expected2, result2)
+
+    def test_tree_with_list_nodes(self):
+        root = lca.Node([12, 7, 8, 100])
+        root.left = lca.Node([1, "blacksmith", "July", 4])
+        root.right = lca.Node([])
+        root.left.left = lca.Node([13, ["purple"], 3456])
+        root.left.right = lca.Node(["15", 15, 88])
+        root.right.left = lca.Node(["North", 74, 98, 0, "00", "001Court"])
+        root.right.right = lca.Node(["last"])
+
+        result = lca.find_lca(root, ["North", 74, 98, 0, "00", "001Court"], ["last"]).data
+        expected = []
+
+        self.assertEqual(expected, result)
+
+
+    def test_string_int_list_tree(self):
+        root = lca.Node(42)
+        root.left = lca.Node("Software Engineering")
+        root.right = lca.Node([1, "blacksmith", "July", 4])
+        root.left.left = lca.Node(78)
+        root.left.right = lca.Node("salt")
+        root.right.left = lca.Node(["North", 74, 98, 0, "00", "001Court"])
+        root.right.right = lca.Node(365)
+
+        result = lca.find_lca(root, 365, "salt").data
+        expected = 42
+
+        self.assertEqual(expected, result)
+
+
+
+    # def test_tree_with_random_empty_nodes(self):
+
+
+    # def test_tree_where_you_dont_call_root_but_call_its_value_instead(self):
+    #         # i dont know if we have to succeed with this function or not but i'll check with david
+    #
+    #
 
 
 
