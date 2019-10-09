@@ -4,39 +4,37 @@
 # originally found on https://www.techiedelight.com/find-lowest-common-ancestor-lca-two-nodes-binary-tree/
 
 
-# class Node:
-#
-# 	# A utility function to create a new node
-# 	def __init__(self, key):
-# 		self.data = key
-# 		self.left = None
-# 		self.right = None
-#
-# 	def __repr__(self):
-# 		return str(self.data)
+class Node:
+
+	# A utility function to create a new node
+	def __init__(self, key):
+		self.data = key
+		self.left = None
+		self.right = None
+
+		#for creating a three-node
+		self.center = None
+
+	def __repr__(self):
+		return str(self.data)
 
 # def create_tree_with_root_X(x):
 # 	root = Node(x)
 # 	root.left = Node()
 # 	root.right = Node()
 
-class Tree:
-	def __init__(self):
-		self.left = None
-		self.right = None
-		self.data = None
-
-def create_tree(): ## this might work but it will involve inputing each data value - will take longer
-
-	root = Tree()
-	#root.data = "root"
-	# root.left = Tree()
-	# root.right = Tree()
-
-
-
-
-
+# class Tree:
+# 	def __init__(self):
+# 		self.left = None
+# 		self.right = None
+# 		self.data = None
+#
+# def create_tree(): ## this might work but it will involve inputing each data value - will take longer
+#
+# 	root = Tree()
+# 	#root.data = "root"
+# 	# root.left = Tree()
+# 	# root.right = Tree()
 
 
 

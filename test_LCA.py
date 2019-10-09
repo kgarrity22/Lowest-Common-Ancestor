@@ -1,18 +1,11 @@
 # Testing LCA function
 
-class Tree:
-	def __init__(self):
-		self.left = None
-		self.right = None
-		self.data = None
 
-def create_tree(): ## this might work but it will involve inputing each data value - will take longer
-
-	root = Tree()
 
 # import the unittest function
 import unittest
-import LCA
+import LCA as lca
+
 
 # create class where we will write test functions
 class TestLCA(unittest.TestCase):
@@ -20,26 +13,18 @@ class TestLCA(unittest.TestCase):
     # Test if it works when neither node is in the tree
     def test_LCA_for_input_not_in_tree(self):
 
-        # create the tree to be tested ** this needs to be changed
+        # create the tree to be tested
 
-        root = Tree()
-
-        root.data = 1
-        root.left = Tree()
-        root.left.data = 2
-        root.right = Tree()
-        root.right.data = 3
-        root.left.left = Tree()
-        root.left.left.data = 4
-        root.left.right = Tree()
-        root.left.right.data = 5
-        root.right.left = Tree()
-        root.right.left.data = 6
-        root.right.right = Tree()
-        root.right.right.data = 7
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
 
         # caputure the results of the function
-        result = find_lca(root, 10, 4).data
+        result = lca.find_lca(root, 10, 4).data
         expected = None
 
         # check for expected output
@@ -49,45 +34,55 @@ class TestLCA(unittest.TestCase):
     def test_only_right_tree(self):
         # this function will make sure the LCA works for a tree with only right nodes
 
-        root = Tree()
-        root.data = 1
-        root.right = Tree()
-        root.right.data = 3
-        root.right.right = Tree()
-        root.right.right.data = 7
-        root.right.right.right = Tree()
-        root.right.right.right.data = 18
-        root.right.right.right.right = Tree()
-        root.right.right.right.right.data = 24
-        root.right.right.right.right.right = Tree()
-        root.right.right.right.right.right.data = 900
+        root = lca.Node(2)
+        root.right = lca.Node(3)
+        root.right.right = lca.Node(7)
+        root.right.right.right = lca.Node(18)
+        root.right.right.right.right = lca.Node(24)
+        root.right.right.right.right.right = lca.Node(900)
 
-        result = find_lca(root, 18, 24).data
+        result = lca.find_lca(root, 18, 24).data
         expected = 18
 
         self.assertEqual(expected, result)
 
 
 
-    # def test_only_left_tree(self):
+    def test_only_left_tree(self):
         # this function will make sure the LCA works for a tree with only left nodes
 
-        # root = create_tree()
-        # root.left.data = Node(65)
-        # root.left.left.data = Node(3)
-        # root.left.left.left.data = Node(92)
-        # root.left.left.left.left.data = Node(12)
-        # root.left.left.left.left.left.data = Node(37)
-        #
-        # result = find_lca(root, 3, 17).data
-        # expected = 17
-        #
-        # self.assertEqual(expected, result)
+        root = lca.Node(7)
+        root.left = lca.Node(65)
+        root.left.left = lca.Node(3)
+        root.left.left.left = lca.Node(92)
+        root.left.left.left.left = lca.Node(17)
+        root.left.left.left.left.left = lca.Node(37)
 
-    #
-    # def test_empty_tree(self):
-    #     # testing LCA code for empty Tree
-    #
+        result = lca.find_lca(root, 3, 17).data
+        expected = 17
+
+        self.assertEqual(expected, result)
+
+
+    def test_empty_tree(self):
+        # testing LCA code for empty Tree
+		root = lca.Node(None)
+
+		# is this an empty tree or just nothing?
+		result = lca.find_lca(root, root, root).data
+		expected = None
+
+		self.assertEqual(expected, result)
+
+# should this be allowed? because it isn't based on the way I initialize my nodes
+    def test_tree_with_nothing(self): #this is not working
+		root = lca.Node()
+
+		result = lca.find_lca(root, root, root).data
+		expected = 0
+
+		self.assertEqual(expected, result)
+
 
 
 
