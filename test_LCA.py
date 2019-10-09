@@ -230,6 +230,50 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
+# ****LCA fails when there are two of the same Node value -
+## maybe doesn't matter what it does as long as it does what we want it to do?
+
+    def test_tree_with_repeated_Nodes(self):
+        # what do we want it to do? take the first parent or the second parent?
+
+        root = lca.Node(6)
+        root.left = lca.Node(4)
+        root.right = lca.Node(40)
+        root.left.left = lca.Node(32)
+        root.left.right = lca.Node(67)
+        root.right.left = lca.Node(32)
+        root.right.right = lca.Node(999)
+
+
+        result = lca.find_lca(root, 4, 32).data
+        expected = 4 # if we are looking at the 32 that is a child of 4
+        other_expected = 1 # if we are looking at the other 32
+
+        self.assertEqual(expected, result)
+        self.assertEqual(other_expected, result)
+
+
+
+        result2 = lca.find_lca(root, 32, 32).data #check what will happen with this if there is only one 32
+        expected2 = 1
+
+        self.assertEqual(expected2, result2)
+
+
+    # def test_tree_with_three_repeated_Nodes(self):
+    #
+    #     result = lca.find_lca(root, 32, 32).data # where there is 3 32's in the chart
+    #
+
+
+
+
+    # def test_very_big_tree(self):
+    #     root = lca
+    #     for i in range 100:
+    #
+    #     for j in range(101,200):
+
 
 
 
