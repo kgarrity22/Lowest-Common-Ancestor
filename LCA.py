@@ -19,6 +19,22 @@ class Node:
 		return str(self.data)
 
 
+count = 0
+new_count = 0
+def repeats(root, n1, count):
+	if root.data == n1:
+		count += 1
+	if root.left:
+		repeats(root.left, n1, count)
+	if root.right:
+		repeats(root.right, n1, count)
+
+	if count > 1:
+		return True
+	# so if there are more than 1 nodes with the same value, this function will return true
+	# now we want to run this on each node before we find the lca and if it is true, we need to find the LCA of each one
+	# should try to tag each repeat as we find it
+
 
 
 
@@ -62,6 +78,17 @@ def findLCA(root, n1, n2):
 	# this will be your lowest common ancestor
 	if lca_left and lca_right:
 		return root
+
+	if repeats(root, n1, 0):
+		print("This node value ", n1, "occurs more than once.")
+	if repeats(root, n2, 0):
+		print("This node value ", n2, "occurs more than once.")
+
+
+
+
+	# if there are two nodes with the same value in the tree
+	# how do we scan the tree to see if the node appears twice? - should do this at the beginning
 
 	# return if any of the subtree returned a result
 	return lca_right if lca_right else lca_left
