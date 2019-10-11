@@ -20,7 +20,7 @@ class Node:
 
 
 count = 0
-new_count = 0
+
 def repeats(root, n1, count):
 	if root.data == n1:
 		count += 1
@@ -40,7 +40,15 @@ def repeats(root, n1, count):
 
 # This function returns pointer to LCA of two given values n1 and n2
 # This function also verify that n1 and n2 are present in Binary Tree
+
+
 def findLCA(root, n1, n2):
+	iterations = 1
+
+	icrement = iterations+1
+	if icrement ==1:
+		if str(type(root)) != "class '__main__.Node'":
+			return("Invalid Input")
 
 	if not root:
 		return root
@@ -61,14 +69,14 @@ def findLCA(root, n1, n2):
 		return root
 
 	# if lca_left not null atleast one of the nodes is present in left sub tree
-	lca_left = findLCA(root.left, n1, n2)
+	lca_left = findLCA(root.left, n1, n2, increment)
 
 	# Both have been Matched no need to go any further
 	if findLCA.n1 and findLCA.n2:
 		return lca_left
 
 	# if lca_right not null at least one of the nodes is present in right sub tree
-	lca_right = findLCA(root.right, n1, n2)
+	lca_right = findLCA(root.right, n1, n2, increment)
 
 	# This condition is added for scenario where one of the requested node is LCA
 	# Here we will override the child result received from parent node
@@ -98,10 +106,10 @@ def findLCA(root, n1, n2):
 def find_lca(root, n1, n2):
 	findLCA.n1 = False
 	findLCA.n2 = False
-	lca = findLCA(root, n1, n2)
+	lca = findLCA(root, n1, n2, iterations)
 	if findLCA.n1 and findLCA.n2:
 		return lca
-	# if str(type(root)) != "class '__main__.Node'" or str(type(root.data)):
-	# 	return("Invalid Input")
+	elif (lca == "Invalid Input"):
+		return lca
 	else:
 		return Node(None)
