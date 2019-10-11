@@ -1,8 +1,8 @@
-# Testing LCA function
-
-# *** can run more than one test in the same function
-
-# import the unittest function
+# # Testing LCA function
+#
+# # *** can run more than one test in the same function
+#
+# # import the unittest function
 import unittest
 import LCA as lca
 
@@ -60,7 +60,6 @@ class TestLCA(unittest.TestCase):
         expected = 18
 
         self.assertEqual(expected, result)
-
 
 
     def test_only_left_tree(self):
@@ -152,8 +151,6 @@ class TestLCA(unittest.TestCase):
 
 
     def test_tree_with_random_empty_nodes(self):
-
-
         root = lca.Node(100)
         root.left = lca.Node()
         root.right = lca.Node(3)
@@ -171,7 +168,7 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
-        result2 = lca.find_lca(root, 7, 95).data
+        result2 =lca.find_lca(root, 7, 95).data
         expected2 = 3
 
 
@@ -186,7 +183,7 @@ class TestLCA(unittest.TestCase):
 
 
 # i dont know if we have to succeed with this function or not but i'll check with david
-    def test_tree_where_you_dont_call_root_but_call_its_value_instead(self):
+    def test_tree_with_invalid_findlca_input(self):
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -195,13 +192,13 @@ class TestLCA(unittest.TestCase):
         root.right.left = lca.Node(6)
         root.right.right = lca.Node(7)
 
-        result = lca.find_lca(lca.Node(1), 6, 7).data
-        expected = 3
+        result = lca.find_lca("string", 3, 4)
+        expected = "Invalid Input"
 
         self.assertEqual(expected, result)
 # okay this fails when you don't call root in the finc_lca function... is this an issue or just required syntax?
 # maybe should have a statement that deals with incorrect input?
-
+# insert a counter and whe its the first iteration, if the root is not a node, throw an error
     def test_tree_with_one_none_input(self):
         root = lca.Node(1)
         root.left = lca.Node(2)

@@ -41,6 +41,7 @@ def repeats(root, n1, count):
 # This function returns pointer to LCA of two given values n1 and n2
 # This function also verify that n1 and n2 are present in Binary Tree
 def findLCA(root, n1, n2):
+
 	if not root:
 		return root
 
@@ -100,5 +101,7 @@ def find_lca(root, n1, n2):
 	lca = findLCA(root, n1, n2)
 	if findLCA.n1 and findLCA.n2:
 		return lca
+	# if str(type(root)) != "class '__main__.Node'" or str(type(root.data)):
+	# 	return("Invalid Input")
 	else:
 		return Node(None)
