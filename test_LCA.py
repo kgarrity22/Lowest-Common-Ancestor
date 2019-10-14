@@ -316,15 +316,28 @@ class TestLCA(unittest.TestCase):
         root.center.left = lca.Node(713)
         root.center.center= lca.Node(23)
 
-        result = lca.find_lca(root, 213, 713).data
-        expected = 10
+        result = lca.find_lca(root, 389, 2).data
+        expected = 79
+
+        self.assertEqual(expected, result)
+# works if it only has to deal with left and right nodes, but doesn't have code for center nodes
+
+    def test_lca_for_dag(self):
+        root = lca.Node("G")
+        root.left = lca.Node("D")
+        root.right = lca.Node("F")
+        root.left.center = lca.Node("C")
+        root.right.center = lca.Node("E")
+        root.left.center.center = lca.Node("B")
+        root.right.center.center = root.left.center.center
+        root.left.center.center.center = lca.Node("A")
+
+        result = lca.find_lca(root, "B", "E").data
+        expected = "E"
 
         self.assertEqual(expected, result)
 
 
-
-
-    # def test_lca_for_dag(self):
 
 
 
