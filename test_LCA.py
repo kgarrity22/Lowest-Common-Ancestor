@@ -272,58 +272,59 @@ class TestLCA(unittest.TestCase):
     #     self.assertEqual(expected2, result2)
     #
 
-    def test_very_big_tree(self):
+    # def test_very_big_tree(self):
+    #
+    #     right_vals = []
+    #     left_vals = []
+    #
+    #     for i in range(25):
+    #         right_vals.append(i)
+    #     for i in range(26, 50):
+    #         left_vals.append(i)
+    #
+    #     root = lca.Node(0)
+    #     lca.add_right_Nodes(root, right_vals, 0)
+    #     lca.add_left_Nodes(root, left_vals, 0)
+    #
+    #     result = lca.find_lca(root, 29, 49).data
+    #     expected = 29
+    #
+    #     self.assertEqual(expected, result)
+    #
+    #
+    #     result2 = lca.find_lca(root, 17, 38).data
+    #     expected2 = 0
+    #
+    #     self.assertEqual(expected2, result2)
 
-        right_vals = []
-        left_vals = []
 
-        for i in range(25):
-            right_vals.append(i)
-        for i in range(26, 50):
-            left_vals.append(i)
+    def test_tree_with_three_nodes(self):
+        root = lca.Node(79)
+        root.left = lca.Node(389)
+        root.right = lca.Node(2)
+        root.center = lca.Node(10)
 
-        root = lca.Node(0)
-        lca.add_right_Nodes(root, right_vals, 0)
-        lca.add_left_Nodes(root, left_vals, 0)
+        root.left.left = lca.Node(36)
+        root.left.right = lca.Node(37)
+        root.left.center = lca.Node(29)
 
-        result = lca.find_lca(root, 29, 49).data
-        expected = 29
+        root.right.left = lca.Node(0)
+        root.right.right = lca.Node(15)
+        root.right.center = lca.Node(89)
+
+        root.center.right = lca.Node(213)
+        root.center.left = lca.Node(713)
+        root.center.center= lca.Node(23)
+
+        result = lca.find_lca(root, 213, 713).data
+        expected = 10
 
         self.assertEqual(expected, result)
 
 
-        result2 = lca.find_lca(root, 17, 38).data
-        expected2 = 0
 
-        self.assertEqual(expected2, result2)
 
-    #
-    # def test_tree_with_three_nodes(self):
-    #     root = lca.Node(79)
-    #     root.left = lca.Node(389)
-    #     root.right = lca.Node(2)
-    #     root.center = lca.Node(10)
-    #
-    #     root.left.left = lca.Node(36)
-    #     root.left.right = lca.Node(37)
-    #     root.left.center = lca.Node(29)
-    #
-    #     root.right.left = lca.Node(0)
-    #     root.right.right = lca.Node(15)
-    #     root.right.center = lca.Node(89)
-    #
-    #     root.right.right.right = lca.Node(213)
-    #     root.right.right.center = lca.Node(713)
-    #
-    #     root.right.left.right = lca.Node(23)
-    #     root.right.left.center = lca.Node(8)
-    #
-    #     root.left.right.left = lca.Node(4)
-    #     root.left.right.center = lca.Node(96)
-    #
-    #     result = lca.find_lca()
-    #
-    #
+    # def test_lca_for_dag(self):
 
 
 
