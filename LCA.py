@@ -3,14 +3,15 @@
 
 # originally found on https://www.techiedelight.com/find-lowest-common-ancestor-lca-two-nodes-binary-tree/
 
+from binarytree import Node, tree, bst, heap, build
 
 class Node:
 
 	# A utility function to create a new node
-	def __init__(self, key = None):
-		self.data = key
-		self.left = None
-		self.right = None
+	def __init__(self, data, left = None, right = None):
+		self.data = data
+		self.left = left
+		self.right = right
 
 		#for creating a three-node
 		self.center = None
@@ -35,7 +36,12 @@ def repeats(root, n1, count):
 	# now we want to run this on each node before we find the lca and if it is true, we need to find the LCA of each one
 	# should try to tag each repeat as we find it
 
-
+# def create_three_node(root, x, y, z):
+#
+# 	root.left = Node(x)
+# 	root.right = Node(y)
+#     root.center = Node(z)
+# 	# need to update this
 
 
 # This function returns pointer to LCA of two given values n1 and n2
@@ -51,21 +57,25 @@ def findLCA(root, n1, n2):
 	# 		return("Invalid Input")
 
 	if not root:
+		# if the root is false, return false
 		# print("this is what not root does: ")
 		return root
 
 	# findLCA.n1 and findLCA.n2 are boolean variables to verify nodes exists in tree.
 	# Current node Match n1
-	if root.data == n1:
+	# if the root is the first node, findn1 is true, n1 has been found
+	if root == n1:
 		findLCA.n1 = True
 
 	# Current node Match n2
-	if root.data == n2:
+	# if the root is the second input node, then n2 has been found
+	if root == n2:
 		findLCA.n2 = True
 
 	# Both have been Matched no need to go any further.
 	# This condition is added for scenario where both nodes are found no need to
 	# further down the tree.
+	# if
 	if findLCA.n1 and findLCA.n2:
 		return root
 
@@ -81,7 +91,7 @@ def findLCA(root, n1, n2):
 
 	# This condition is added for scenario where one of the requested node is LCA
 	# Here we will override the child result received from parent node
-	if root.data == n1 or root.data == n2:
+	if root == n1 or root == n2:
 		return root
 
 	# if one node is present in left subtree and other in right subtree.
@@ -116,16 +126,16 @@ def find_lca(root, n1, n2):
 		return Node(None)
 
 # functions for more easliy creating a very big Tree
-
-def add_right_Nodes(root, values, i):
-	while i < len(values):
-		root.right = Node(values[i])
-		i += 1
-		add_right_Nodes(root.right, values, i)
-
-
-def add_left_Nodes(root, values, i):
-	while i < len(values):
-		root.left = Node(values[i])
-		i += 1
-		add_right_Nodes(root.left, values, i)
+#
+# def add_right_Nodes(root, values, i):
+# 	while i < len(values):
+# 		root.right = Node(values[i])
+# 		i += 1
+# 		add_right_Nodes(root.right, values, i)
+#
+#
+# def add_left_Nodes(root, values, i):
+# 	while i < len(values):
+# 		root.left = Node(values[i])
+# 		i += 1
+# 		add_right_Nodes(root.left, values, i)
