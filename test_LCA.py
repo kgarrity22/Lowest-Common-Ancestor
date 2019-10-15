@@ -5,6 +5,7 @@
 # # import the unittest function
 import unittest
 import LCA as lca
+from binarytree import Node, tree, bst, heap, build
 
 
 # create class where we will write test functions
@@ -25,8 +26,8 @@ class TestLCA(unittest.TestCase):
         # check for expected output
         self.assertEqual(expected, result)
 
-        result2 = lca.find_lca(root, root.left, root.left.left)
-        expected2 = root.left
+        result2 = lca.find_lca(root, root.right, root.right.left)
+        expected2 = root.right
         self.assertEqual(expected2, result2)
 #
 #     def test_lca_as_root(self):
@@ -280,30 +281,20 @@ class TestLCA(unittest.TestCase):
 #     #     self.assertEqual(expected2, result2)
 #     #
 #
-#     # def test_very_big_tree(self):
-#     #
-#     #     right_vals = []
-#     #     left_vals = []
-#     #
-#     #     for i in range(25):
-#     #         right_vals.append(i)
-#     #     for i in range(26, 50):
-#     #         left_vals.append(i)
-#     #
-#     #     root = lca.Node(0)
-#     #     lca.add_right_Nodes(root, right_vals, 0)
-#     #     lca.add_left_Nodes(root, left_vals, 0)
-#     #
-#     #     result = lca.find_lca(root, 29, 49).data
-#     #     expected = 29
-#     #
-#     #     self.assertEqual(expected, result)
-#     #
-#     #
-#     #     result2 = lca.find_lca(root, 17, 38).data
-#     #     expected2 = 0
-#     #
-#     #     self.assertEqual(expected2, result2)
+    def test_very_big_tree(self):
+        root = tree(height=9)
+
+
+        result = lca.find_lca(root, root.right.right.right.right, root.right.right.right.right.right.right.right)
+        expected = root.right.right.right.right
+
+        self.assertEqual(expected, result)
+
+
+        result2 = lca.find_lca(root, root.left.left.right.left, root.left.left.left.right.right)
+        expected2 = root.left.left
+
+        self.assertEqual(expected2, result2)
 #
 #
 #     def test_tree_with_three_nodes(self):

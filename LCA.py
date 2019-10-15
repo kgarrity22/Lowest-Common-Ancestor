@@ -22,19 +22,17 @@ class Node:
 
 count = 0
 
-def repeats(root, n1, count):
-	if root.data == n1:
-		count += 1
-	if root.left:
-		repeats(root.left, n1, count)
-	if root.right:
-		repeats(root.right, n1, count)
+# def repeats(root, n1, count):
+# 	if root.data == n1:
+# 		count += 1
+# 	if root.left:
+# 		repeats(root.left, n1, count)
+# 	if root.right:
+# 		repeats(root.right, n1, count)
+#
+# 	if count > 1:
+# 		return True
 
-	if count > 1:
-		return True
-	# so if there are more than 1 nodes with the same value, this function will return true
-	# now we want to run this on each node before we find the lca and if it is true, we need to find the LCA of each one
-	# should try to tag each repeat as we find it
 
 # def create_three_node(root, x, y, z):
 #
@@ -46,7 +44,6 @@ def repeats(root, n1, count):
 
 # This function returns pointer to LCA of two given values n1 and n2
 # This function also verify that n1 and n2 are present in Binary Tree
-
 
 def findLCA(root, n1, n2):
 	# iterations = 1
@@ -99,10 +96,10 @@ def findLCA(root, n1, n2):
 	if lca_left and lca_right:
 		return root
 
-	if repeats(root, n1, 0):
-		print("This node value ", n1, "occurs more than once.")
-	if repeats(root, n2, 0):
-		print("This node value ", n2, "occurs more than once.")
+	# if repeats(root, n1, 0):
+	# 	print("This node value ", n1, "occurs more than once.")
+	# if repeats(root, n2, 0):
+	# 	print("This node value ", n2, "occurs more than once.")
 
 
 
