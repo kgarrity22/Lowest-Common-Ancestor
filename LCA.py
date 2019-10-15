@@ -3,6 +3,7 @@
 
 # originally found on https://www.techiedelight.com/find-lowest-common-ancestor-lca-two-nodes-binary-tree/
 
+import networkx as nx
 
 class Node:
 

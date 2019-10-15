@@ -5,6 +5,7 @@
 # # import the unittest function
 import unittest
 import LCA as lca
+import networkx as nx
 
 
 # create class where we will write test functions
