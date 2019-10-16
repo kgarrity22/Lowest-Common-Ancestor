@@ -109,8 +109,8 @@ class TestLCA(unittest.TestCase):
     def test_tree_with_nothing(self): #this is not working
         root = lca.Node(None)
 
-        result = lca.find_lca(root, root, root).data
-        expected = None
+        result = lca.find_lca(root, root, root)
+        expected = root
 
         self.assertEqual(expected, result)
 
@@ -162,7 +162,6 @@ class TestLCA(unittest.TestCase):
 
         result = lca.find_lca(root, root.right.right, root.left.right)
         expected = root
-
         self.assertEqual(expected, result)
 
 
@@ -182,20 +181,13 @@ class TestLCA(unittest.TestCase):
 
         result = lca.find_lca(root, root.left.right.left.left, root.left.left)
         expected = root.left
-
         self.assertEqual(expected, result)
 
         result2 =lca.find_lca(root, root.right.left.right, root.right.right.right)
         expected2 = root.right
-
         self.assertEqual(result2, expected2)
 
-#
-# # NOTE this ia a unique case where it doesn't work if we have None as the second input, but it will give us the
-#         result3 = lca.find_lca(root, root.left, 38).data
-#         expected3 = None
-#
-#         self.assertEqual(expected3, result3)
+
 
     def test_tree_with_invalid_findlca_input(self):
         root = lca.Node(1)
@@ -208,7 +200,6 @@ class TestLCA(unittest.TestCase):
 
         result = lca.find_lca("string", root.right, root.left.left)
         expected = False
-
         self.assertEqual(expected, result)
 
 
@@ -238,7 +229,6 @@ class TestLCA(unittest.TestCase):
 
         result = lca.find_lca(None, None, None)
         expected = False
-
         self.assertEqual(expected, result)
 
 
@@ -262,22 +252,22 @@ class TestLCA(unittest.TestCase):
         expected2 = root
         self.assertEqual(expected2, result2)
 
-#
-#     def test_very_big_tree(self):
-#         root = tree(height=9)
-#
-#
-#         result = lca.find_lca(root, root.right.right.right.right, root.right.right.right.right.right.right.right).data
-#         expected = root.right.right.right.right
-#
-#         self.assertEqual(expected, result)
-#
-#
-#         result2 = lca.find_lca(root, root.left.left.right.left, root.left.left.left.right.right).data
-#         expected2 = root.left.left
-#
-#         self.assertEqual(expected2, result2)
-#
+
+    def test_very_big_tree(self):
+        root = tree(height=9)
+
+
+        result = lca.find_lca(root, root.right.right.right.right, root.right.right.right.right.right.right.right)
+        expected = root.right.right.right.right
+
+        self.assertEqual(expected, result)
+
+
+        result2 = lca.find_lca(root, root.left.left.right.left, root.left.left.left.right.right)
+        expected2 = root.left.left
+
+        self.assertEqual(expected2, result2)
+
 #
 #     def test_tree_with_three_nodes(self):
 #         root = lca.Node(79)
