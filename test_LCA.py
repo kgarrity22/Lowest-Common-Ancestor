@@ -268,51 +268,54 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected2, result2)
 
-#
-#     def test_tree_with_three_nodes(self):
-#         root = lca.Node(79)
-#         root.left = lca.Node(389)
-#         root.right = lca.Node(2)
-#         root.center = lca.Node(10)
-#
-#         root.left.left = lca.Node(36)
-#         root.left.right = lca.Node(37)
-#         root.left.center = lca.Node(29)
-#
-#         root.right.left = lca.Node(0)
-#         root.right.right = lca.Node(15)
-#         root.right.center = lca.Node(89)
-#
-#         root.center.right = lca.Node(213)
-#         root.center.left = lca.Node(713)
-#         root.center.center= lca.Node(23)
-#
-#         result = lca.find_lca(root, 389, 2).data
-#         expected = 79
-#
-#         self.assertEqual(expected, result)
-# # works if it only has to deal with left and right nodes, but doesn't have code for center nodes
-#
-#     def test_lca_for_dag(self):
-#         root = lca.Node("G")
-#         root.left = lca.Node("D")
-#         root.right = lca.Node("F")
-#         root.left.center = lca.Node("C")
-#         root.right.center = lca.Node("E")
-#         root.left.center.center = lca.Node("B")
-#         root.right.center.center = root.left.center.center
-#         root.left.center.center.center = lca.Node("A")
-#
-#         result = lca.find_lca(root, "B", "E").data
-#         expected = "E"
-#
-#         self.assertEqual(expected, result)
-#
-#
-#
-#
-#
-#  # Test Runner
-#
+# this works for left and right nodes, but can't handle the center nodes
+    def test_tree_with_three_nodes(self):
+        root = lca.Node(79)
+        root.left = lca.Node(389)
+        root.right = lca.Node(2)
+        root.center = lca.Node(10)
+
+        root.left.left = lca.Node(36)
+        root.left.right = lca.Node(37)
+        root.left.center = lca.Node(29)
+
+        root.right.left = lca.Node(0)
+        root.right.right = lca.Node(15)
+        root.right.center = lca.Node(89)
+
+        root.center.right = lca.Node(213)
+        root.center.left = lca.Node(713)
+        root.center.center= lca.Node(23)
+
+        result = lca.find_lca(root, root.left, root.right)
+        expected = root
+        self.assertEqual(expected, result)
+
+        result2 = lca.find_lca(root, root.center.right, root.center.center)
+        expected2 = root.center
+        self.assertEqual(expected2, result2)
+
+
+    def test_lca_for_dag(self):
+        root = lca.Node("G")
+        root.left = lca.Node("D")
+        root.right = lca.Node("F")
+        root.left.center = lca.Node("C")
+        root.right.center = lca.Node("E")
+        root.left.center.center = lca.Node("B")
+        root.right.center.center = root.left.center.center
+        root.left.center.center.center = lca.Node("A")
+
+        result = lca.find_lca(root, "B", "E").data
+        expected = "E"
+
+        self.assertEqual(expected, result)
+
+
+
+
+
+ # Test Runner
+
 if __name__ == '__main__':
     unittest.main()
