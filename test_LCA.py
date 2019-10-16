@@ -88,8 +88,11 @@ class TestLCA(unittest.TestCase):
 
         result = lca.find_lca(root, root.left, root.left.left.left)
         expected = root.left
-
         self.assertEqual(expected, result)
+
+        result2 = lca.find_lca(root, root.left.left, root.left.left.left)
+        expected2 = root.left.left
+        self.assertEqual(expected2, result2)
 
 
     def test_empty_tree(self):
@@ -132,146 +135,133 @@ class TestLCA(unittest.TestCase):
         expected2 = root.left
 
         self.assertEqual(expected2, result2)
-#
-#     def test_tree_with_list_nodes(self):
-#         root = lca.Node([12, 7, 8, 100])
-#         root.left = lca.Node([1, "blacksmith", "July", 4])
-#         root.right = lca.Node([])
-#         root.left.left = lca.Node([13, ["purple"], 3456])
-#         root.left.right = lca.Node(["15", 15, 88])
-#         root.right.left = lca.Node(["North", 74, 98, 0, "00", "001Court"])
-#         root.right.right = lca.Node(["last"])
-#
-#         result = lca.find_lca(root, ["North", 74, 98, 0, "00", "001Court"], ["last"]).data
-#         expected = []
-#
-#         self.assertEqual(expected, result)
-#
-#
-#     def test_string_int_list_tree(self):
-#         root = lca.Node(42)
-#         root.left = lca.Node("Software Engineering")
-#         root.right = lca.Node([1, "blacksmith", "July", 4])
-#         root.left.left = lca.Node(78)
-#         root.left.right = lca.Node("salt")
-#         root.right.left = lca.Node(["North", 74, 98, 0, "00", "001Court"])
-#         root.right.right = lca.Node(365)
-#
-#         result = lca.find_lca(root, 365, "salt").data
-#         expected = 42
-#
-#         self.assertEqual(expected, result)
-#
-#
-#
-#     def test_tree_with_random_empty_nodes(self):
-#         root = lca.Node(100)
-#         root.left = lca.Node()
-#         root.right = lca.Node(3)
-#         root.left.left = lca.Node(38)
-#         root.left.right = lca.Node()
-#         root.right.left = lca.Node(3.4)
-#         root.right.right = lca.Node()
-#         root.right.right.right = lca.Node(95)
-#         root.right.left.right = lca.Node(7)
-#         root.left.right.left = lca.Node()
-#         root.left.right.left.left = lca.Node(46)
-#
-#         result = lca.find_lca(root, 46, 38).data
-#         expected = None
-#
-#         self.assertEqual(expected, result)
-#
-#         result2 =lca.find_lca(root, 7, 95).data
-#         expected2 = 3
-#
-#         self.assertEqual(result2, expected2)
-#
+
+    def test_tree_with_list_nodes(self):
+        root = lca.Node([12, 7, 8, 100])
+        root.left = lca.Node([1, "blacksmith", "July", 4])
+        root.right = lca.Node([])
+        root.left.left = lca.Node([13, ["purple"], 3456])
+        root.left.right = lca.Node(["15", 15, 88])
+        root.right.left = lca.Node(["North", 74, 98, 0, "00", "001Court"])
+        root.right.right = lca.Node(["last"])
+
+        result = lca.find_lca(root, root.right.left, root.right.right)
+        expected = root.right
+
+        self.assertEqual(expected, result)
+
+
+    def test_string_int_list_tree(self):
+        root = lca.Node(42)
+        root.left = lca.Node("Software Engineering")
+        root.right = lca.Node([1, "blacksmith", "July", 4])
+        root.left.left = lca.Node(78)
+        root.left.right = lca.Node("salt")
+        root.right.left = lca.Node(["North", 74, 98, 0, "00", "001Court"])
+        root.right.right = lca.Node(365)
+
+        result = lca.find_lca(root, root.right.right, root.left.right)
+        expected = root
+
+        self.assertEqual(expected, result)
+
+
+
+    def test_tree_with_random_empty_nodes(self):
+        root = lca.Node(100)
+        root.left = lca.Node(None)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(38)
+        root.left.right = lca.Node(None)
+        root.right.left = lca.Node(3.4)
+        root.right.right = lca.Node(None)
+        root.right.right.right = lca.Node(95)
+        root.right.left.right = lca.Node(7)
+        root.left.right.left = lca.Node(None)
+        root.left.right.left.left = lca.Node(46)
+
+        result = lca.find_lca(root, root.left.right.left.left, root.left.left)
+        expected = root.left
+
+        self.assertEqual(expected, result)
+
+        result2 =lca.find_lca(root, root.right.left.right, root.right.right.right)
+        expected2 = root.right
+
+        self.assertEqual(result2, expected2)
+
 #
 # # NOTE this ia a unique case where it doesn't work if we have None as the second input, but it will give us the
 #         result3 = lca.find_lca(root, root.left, 38).data
 #         expected3 = None
 #
 #         self.assertEqual(expected3, result3)
-#
-#
-#
-#
-#
-# # i dont know if we have to succeed with this function or not but i'll check with david
-#     # def test_tree_with_invalid_findlca_input(self):
-#     #     root = lca.Node(1)
-#     #     root.left = lca.Node(2)
-#     #     root.right = lca.Node(3)
-#     #     root.left.left = lca.Node(4)
-#     #     root.left.right = lca.Node(5)
-#     #     root.right.left = lca.Node(6)
-#     #     root.right.right = lca.Node(7)
-#     #
-#     #     result = lca.find_lca("string", 3, 4)
-#     #     expected = "Invalid Input"
-#     #
-#     #     self.assertEqual(expected, result)
-# # okay this fails when you don't call root in the finc_lca function... is this an issue or just required syntax?
-# # maybe should have a statement that deals with incorrect input?
-# # insert a counter and whe its the first iteration, if the root is not a node, throw an error
-#     def test_tree_with_one_none_input(self):
-#         root = lca.Node(1)
-#         root.left = lca.Node(2)
-#         root.right = lca.Node(3)
-#         root.left.left = lca.Node(4)
-#         root.left.right = lca.Node(5)
-#         root.right.left = lca.Node(6)
-#         root.right.right = lca.Node(7)
-#
-#         result = lca.find_lca(root, 7, None).data
-#         expected = None
-#
-#         self.assertEqual(expected, result)
-#
-#     def test_search_for_None_inputs(self):
-#         root = lca.Node(1)
-#         root.left = lca.Node(2)
-#         root.right = lca.Node(3)
-#         root.left.left = lca.Node(4)
-#         root.left.right = lca.Node(5)
-#         root.right.left = lca.Node(6)
-#         root.right.right = lca.Node(7)
-#
-#         result = lca.find_lca(None, None, None).data
-#         expected = None
-#
-#         self.assertEqual(expected, result)
-#
-# # ****LCA fails when there are two of the same Node value -
-# ## maybe doesn't matter what it does as long as it does what we want it to do?
-#
-#     # def test_tree_with_repeated_Nodes(self):
-#     #     # what do we want it to do? take the first parent or the second parent?
-#     #
-#     #     root = lca.Node(6)
-#     #     root.left = lca.Node(4)
-#     #     root.right = lca.Node(40)
-#     #     root.left.left = lca.Node(32)
-#     #     root.left.right = lca.Node(67)
-#     #     root.right.left = lca.Node(32)
-#     #     root.right.right = lca.Node(999)
-#     #
-#     #
-#     #     result = lca.find_lca(root, 4, 32).data
-#     #     expected = 4 # if we are looking at the 32 that is a child of 4
-#     #     other_expected = 1 # if we are looking at the other 32
-#     #
-#     #     self.assertEqual(expected, result)
-#     #     self.assertEqual(other_expected, result)
-#     #
-#     #
-#     #
-#     #     result2 = lca.find_lca(root, 32, 32).data #check what will happen with this if there is only one 32
-#     #     expected2 = 1
-#     #
-#     #     self.assertEqual(expected2, result2)
-#     #
+
+    def test_tree_with_invalid_findlca_input(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca("string", root.right, root.left.left)
+        expected = False
+
+        self.assertEqual(expected, result)
+
+
+    def test_tree_with_one_none_input(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca(root, 7, None)
+        expected = False
+
+        self.assertEqual(expected, result)
+
+
+    def test_search_for_all_None_inputs(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.find_lca(None, None, None)
+        expected = False
+
+        self.assertEqual(expected, result)
+
+
+    def test_tree_with_repeated_Nodes(self):
+
+        root = lca.Node(6)
+        root.left = lca.Node(4)
+        root.right = lca.Node(40)
+        root.left.left = lca.Node(32)
+        root.left.right = lca.Node(67)
+        root.right.left = lca.Node(32)
+        root.right.right = lca.Node(999)
+
+
+        result = lca.find_lca(root, root.left, root.left.right)
+        expected = root.left
+        self.assertEqual(expected, result)
+
+
+        result2 = lca.find_lca(root, root.left.left, root.right.left)
+        expected2 = root
+        self.assertEqual(expected2, result2)
+
 #
 #     def test_very_big_tree(self):
 #         root = tree(height=9)
