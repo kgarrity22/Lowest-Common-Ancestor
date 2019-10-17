@@ -12,13 +12,32 @@ import networkx as nx
 class TestLCA(unittest.TestCase):
 
     def test_simple_graph(self):
+        G = [[0,1], [0, 2], [1, 3], [2, 3], [1, 2]]
+        result = lca.LCA_total(G, 2, 3)
+        expected = 2
+        self.assertEqual(expected, result)
+
+    def test_larger_graph(self):
         G = nx.Graph()
         G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (6, 7), (7, 8), (8, 9), (9, 10)])
 
-        result = lca.find_lca(1, 4, 5)
+        result = lca.LCA_total(G, 2, 3)
         expected = 1
         self.assertEqual(expected, result)
+
+
+    def test_non_acyclic_graph(self):
+        G = nx.Graph()
+        G.add_nodes_from([1, 2, 3, 4, 5])
+        G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (5, 1)])
+
+        result = lca.LCA_total(G, 5, 3)
+        expected = False
+
+        self.assertEqual(expected, result)
+
+
 
 #     def test_regular_tree(self):
 #         root = lca.Node(1)
