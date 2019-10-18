@@ -6,6 +6,7 @@
 import unittest
 import LCA as lca
 import networkx as nx
+from binarytree import tree, bst, heap
 
 
 # create class where we will write test functions
@@ -97,6 +98,7 @@ class TestLCA(unittest.TestCase):
         # check for expected output
         self.assertEqual(expected, result)
 
+
     def test_lca_as_root(self):
         root = lca.Node(1)
         root.left = lca.Node(2)
@@ -110,7 +112,6 @@ class TestLCA(unittest.TestCase):
         expected = root
 
         self.assertEqual(expected, result)
-
 
     # Test if it works when neither node is in the tree
     def test_LCA_for_input_not_in_tree(self):
@@ -162,8 +163,14 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
+        result2 = lca.find_lca(root, root.left.left, root.left.left.left)
+        expected2 = root.left.left
+        self.assertEqual(expected2, result2)
+
 
     def test_empty_tree(self):
+        root = None
+        # this shouldn't really be allowed ...? FIX
         # testing LCA code for empty Tree
         root = lca.Node(None)
         result = lca.LCA_total(root, root.left, root.right)
@@ -239,14 +246,26 @@ class TestLCA(unittest.TestCase):
 
         result = lca.LCA_total(root, root.left.right.left.left, root.left.left)
         expected = root.left
-
         self.assertEqual(expected, result)
 
         result2 =lca.LCA_total(root, root.right.left.right, root.right.right.right)
         expected2 = root.right
+        self.assertEqual(result2, expected2)
 
-        self.assertEqual(expected2, result2)
 
+
+    def test_tree_with_invalid_findlca_input(self):
+        root = lca.Node(1)
+        root.left = lca.Node(2)
+        root.right = lca.Node(3)
+        root.left.left = lca.Node(4)
+        root.left.right = lca.Node(5)
+        root.right.left = lca.Node(6)
+        root.right.right = lca.Node(7)
+
+        result = lca.LCA_total(root, "string", root.left.left)
+        expected = False
+        self.assertEqual(expected, result)
 
 
     def test_tree_with_one_none_input(self):
@@ -263,7 +282,8 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
-    def test_search_for_None_inputs(self):
+
+    def test_search_for_all_None_inputs(self):
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -275,6 +295,8 @@ class TestLCA(unittest.TestCase):
         result = lca.LCA_total(None, None, None)
         expected = None
 
+        result = lca.find_lca(root, root.left, root.left.right)
+        expected = root.left
         self.assertEqual(expected, result)
 
 
@@ -301,31 +323,26 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(expected2, result2)
 
 
-    # def test_very_big_tree(self):
-    #
-    #     right_vals = []
-    #     left_vals = []
-    #
-    #     for i in range(25):
-    #         right_vals.append(i)
-    #     for i in range(26, 50):
-    #         left_vals.append(i)
-    #
-    #     root = lca.Node(0)
-    #     lca.add_right_Nodes(root, right_vals, 0)
-    #     lca.add_left_Nodes(root, left_vals, 0)
-    #
-    #     result = lca.find_lca(root, 29, 49)
-    #     expected = 29
-    #
-    #     self.assertEqual(expected, result)
-    #
-    #     result2 = lca.find_lca(root, 17, 38)
-    #     expected2 = 0
-    #
-    #     self.assertEqual(expected2, result2)
+        result2 = lca.LCA_total(root, root.left.left, root.right.left)
+        expected2 = root
+        self.assertEqual(expected2, result2)
 
 
+    def test_very_big_tree(self):
+        root = tree(height=9)
+
+        result = lca.find_lca(root, root.right.right.right.right, root.right.right.right.right.right.right.right)
+        expected = root.right.right.right.right
+
+        self.assertEqual(expected, result)
+
+
+        result2 = lca.find_lca(root, root.left.left.right.left, root.left.left.left.right.right)
+        expected2 = root.left.left
+
+        self.assertEqual(expected2, result2)
+
+# this works for left and right nodes, but can't handle the center nodes
     def test_tree_with_three_nodes(self):
         root = lca.Node(79)
         root.left = lca.Node(389)
@@ -348,7 +365,11 @@ class TestLCA(unittest.TestCase):
         expected = root
 
         self.assertEqual(expected, result)
-# works if it only has to deal with left and right nodes, but doesn't have code for center nodes
+
+        result2 = lca.find_lca(root, root.center.right, root.center.center)
+        expected2 = root.center
+        self.assertEqual(expected2, result2)
+
 
     def test_lca_for_dag(self):
         # this is the tree test for DAGs
