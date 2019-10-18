@@ -28,22 +28,13 @@ def LCA_total(structure, n1, n2):
 def find_lca_graph(graph, n1, n2):
 	# if the graph is empty
 	if not graph:
-		return False
-
-	if len(graph) == 1:
-		value = graph[0]
-		graph = [[value, value]]
-
-	# convert the graph to a directed graph
-	g = nx.DiGraph(graph)
-
-	if not g.has_node(n1) or not g.has_node(n2):
 		return None
 
-	if nx.is_directed_acyclic_graph(g):
-		return nx.lowest_common_ancestor(g, n1, n2)
-	else:
+	if not nx.is_directed_acyclic_graph(graph):
 		return False
+	else:
+		return nx.lowest_common_ancestor(graph, n1, n2)
+
 
 
 def lca(root, a, b):

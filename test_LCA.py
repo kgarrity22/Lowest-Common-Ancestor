@@ -12,23 +12,26 @@ import networkx as nx
 class TestLCA(unittest.TestCase):
 
     def test_simple_graph(self):
-        G = [[0,1], [0, 2], [1, 3], [2, 3], [1, 2]]
+        G = nx.DiGraph()
+        G.add_nodes_from([1, 2, 3])
+        G.add_edges_from([(1, 2), (2, 3)])
+
         result = lca.LCA_total(G, 2, 3)
         expected = 2
         self.assertEqual(expected, result)
 
     def test_larger_graph(self):
-        G = nx.Graph()
+        G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (6, 7), (7, 8), (8, 9), (9, 10)])
 
         result = lca.LCA_total(G, 2, 3)
-        expected = 1
+        expected = 2
         self.assertEqual(expected, result)
 
 
     def test_non_acyclic_graph(self):
-        G = nx.Graph()
+        G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3, 4, 5])
         G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (5, 1)])
 
@@ -36,6 +39,11 @@ class TestLCA(unittest.TestCase):
         expected = False
 
         self.assertEqual(expected, result)
+
+    # def test_graph_with_invalid_input(self):
+    #     G = nx.DiGraph()
+    #     G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
 
 
 
