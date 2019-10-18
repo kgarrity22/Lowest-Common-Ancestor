@@ -33,7 +33,10 @@ def find_lca_graph(graph, n1, n2):
 	if not nx.is_directed_acyclic_graph(graph):
 		return False
 	else:
-		return nx.lowest_common_ancestor(graph, n1, n2)
+		if not n1 in graph or not n2 in graph:
+			return("The node you are looking for is not in the graph.")
+		else:
+			return nx.lowest_common_ancestor(graph, n1, n2)
 
 
 

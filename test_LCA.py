@@ -40,9 +40,16 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
-    # def test_graph_with_invalid_input(self):
-    #     G = nx.DiGraph()
-    #     G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    def test_graph_with_invalid_input(self):
+        G = nx.DiGraph()
+        G.add_nodes_from([2, 4, 6, 8, 10])
+        G.add_edges_from([(2, 4), (4, 6), (6, 8), (8, 10)])
+
+        result = lca.LCA_total(G, 5, 7)
+        expected = "The node you are looking for is not in the graph."
+
+        self.assertEqual(expected, result)
+
 
 
 
