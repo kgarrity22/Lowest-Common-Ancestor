@@ -17,26 +17,33 @@ class Node:
 	def __repr__(self):
 		return str(self.data)
 
-def LCA_total(structure, n1, n2):
+def LCA_total(structure, *args):
 	# if the structure is a tree do one thing
 	if isinstance(structure, Node) or isinstance(structure, binarytree.Node):
+		l = [item for item in args]
+		n1 = l[0]
+		n2 = l[1]
 		return find_lca(structure, n1, n2)
 
 	elif isinstance(structure, nx.Graph):
-		return find_lca_graph(structure, n1, n2)
+		return find_lca_graph(structure, *args)
 
-def find_lca_graph(graph, n1, n2):
+def find_lca_graph(graph, *args):
 	# if the graph is empty
 	if not graph:
 		return None
 
 	if not nx.is_directed_acyclic_graph(graph):
 		return False
+
 	else:
-		if not n1 in graph or not n2 in graph:
-			return("The node you are looking for is not in the graph.")
-		else:
-			return nx.lowest_common_ancestor(graph, n1, n2)
+		l = [item for item in args]
+		for i in l:
+			if i not in graph:
+				return ("The node you are looking for is not in the graph.")
+		if len(l)>2:
+			return ("Cannot compute lca of more than two nodes.")
+		return nx.lowest_common_ancestor(graph, *args)
 
 
 
