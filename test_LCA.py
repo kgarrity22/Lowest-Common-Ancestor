@@ -1,6 +1,5 @@
 # # Testing LCA function
 #
-# # *** can run more than one test in the same function
 #
 # # import the unittest function
 import unittest
@@ -13,6 +12,8 @@ from binarytree import tree, bst, heap
 class TestLCA(unittest.TestCase):
 
     def test_simple_graph(self):
+        # test a simple directed acyclic graph with three nodes
+
         G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3])
         G.add_edges_from([(1, 2), (2, 3)])
@@ -22,6 +23,8 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_larger_graph(self):
+        # test a slightly longer directed acyclic graph
+
         G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (6, 7), (7, 8), (8, 9), (9, 10)])
@@ -32,6 +35,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_non_acyclic_graph(self):
+        # test a non-acyclic graph (Node 5 connects back to Node 1)
+
         G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3, 4, 5])
         G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (5, 1)])
@@ -42,6 +47,8 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_graph_with_invalid_input(self):
+        # test for finding a node that is not in the graph
+
         G = nx.DiGraph()
         G.add_nodes_from([2, 4, 6, 8, 10])
         G.add_edges_from([(2, 4), (4, 6), (6, 8), (8, 10)])
@@ -52,21 +59,25 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_complicated_dag(self):
+        # test complex directed acyclic graph
+
         G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
         G.add_edges_from([(1, 5), (1, 9), (2, 6), (2, 10), (3, 7), (4, 8), (4, 12)])
         G.add_edges_from([(5, 13), (9, 14), (6, 13), (10, 14), (7, 13), (11, 14), (8, 13), (12, 14)])
 
         result = lca.LCA_total(G, 5, 8)
-        expected = False
+        expected = None
 
-        result2 = lca.LCA_total(G, 14, 7)
-        expected2 = 3
+        self.assertEqual(result, expected)
 
-        result3 = lca.LCA_total(G, 13, 6)
-        expected3 = 6
+        result2 = lca.LCA_total(G, 13, 6)
+        expected2 = 6
+        self.assertEqual(expected2, result2)
 
     def test_for_multiple_nodes(self):
+        # test search for more than 2 nodes (set to return error message)
+
         G = nx.DiGraph()
         G.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
         G.add_edges_from([(1, 5), (1, 9), (2, 6), (2, 10), (3, 7), (4, 8), (4, 12)])
@@ -84,6 +95,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_regular_tree(self):
+        # test simple tree
+
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -100,6 +113,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_lca_as_root(self):
+        # test a tree where the LCA is the root node
+
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -113,8 +128,9 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
-    # Test if it works when neither node is in the tree
+
     def test_LCA_for_input_not_in_tree(self):
+        # test for nodes that aren't in the tree
 
         root = lca.Node(1)
         root.left = lca.Node(2)
@@ -124,16 +140,14 @@ class TestLCA(unittest.TestCase):
         root.right.left = lca.Node(6)
         root.right.right = lca.Node(7)
 
-        # caputure the results of the function
         result = lca.LCA_total(root, root.right.right.right, root.right.left.left)
         expected = False
 
-        # check for expected output
         self.assertEqual(expected, result)
 
 
     def test_only_right_tree(self):
-        # this function will make sure the LCA works for a tree with only right nodes
+        # test a tree with only right nodes
 
         root = lca.Node(2)
         root.right = lca.Node(3)
@@ -149,7 +163,7 @@ class TestLCA(unittest.TestCase):
 
 
     def test_only_left_tree(self):
-        # this function will make sure the LCA works for a tree with only left nodes
+        # test a tree with only left nodes
 
         root = lca.Node(7)
         root.left = lca.Node(65)
@@ -169,9 +183,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_empty_tree(self):
-        root = None
-        # this shouldn't really be allowed ...? FIX
-        # testing LCA code for empty Tree
+        # test a tree with no values
+
         root = lca.Node(None)
         result = lca.LCA_total(root, root.left, root.right)
         expected = False
@@ -180,7 +193,7 @@ class TestLCA(unittest.TestCase):
 
 
     def test_string_tree(self):
-        # test code for a tree with strings in nodes
+        # test tree with strings as node values
 
         root = lca.Node("pizza")
         root.left = lca.Node("Software Engineering")
@@ -201,6 +214,8 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(expected2, result2)
 
     def test_tree_with_list_nodes(self):
+        # test tree with lists as node values
+
         root = lca.Node([12, 7, 8, 100])
         root.left = lca.Node([1, "blacksmith", "July", 4])
         root.right = lca.Node([])
@@ -216,6 +231,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_string_int_list_tree(self):
+        # test tree with mixed string, int, lists as node values
+
         root = lca.Node(42)
         root.left = lca.Node("Software Engineering")
         root.right = lca.Node([1, "blacksmith", "July", 4])
@@ -232,6 +249,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_tree_with_random_empty_nodes(self):
+        # test tree with random nodes with None value
+
         root = lca.Node(100)
         root.left = lca.Node(None)
         root.right = lca.Node(3)
@@ -255,6 +274,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_tree_with_invalid_findlca_input(self):
+        # test tree where n1 or n1 is not Node type
+
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -269,6 +290,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_tree_with_one_none_input(self):
+        # test tree where one node is None
+
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -284,6 +307,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_search_for_all_None_inputs(self):
+        # test tree where all input is None
+
         root = lca.Node(1)
         root.left = lca.Node(2)
         root.right = lca.Node(3)
@@ -301,7 +326,7 @@ class TestLCA(unittest.TestCase):
 
 
     def test_tree_with_repeated_Nodes(self):
-        # what do we want it to do? take the first parent or the second parent?
+        # test tree with two nodes that have the same value
 
         root = lca.Node(6)
         root.left = lca.Node(4)
@@ -329,6 +354,8 @@ class TestLCA(unittest.TestCase):
 
 
     def test_very_big_tree(self):
+        # test binary tree of height 9
+
         root = tree(height=9)
 
         result = lca.find_lca(root, root.right.right.right.right, root.right.right.right.right.right.right.right)
@@ -342,8 +369,11 @@ class TestLCA(unittest.TestCase):
 
         self.assertEqual(expected2, result2)
 
-# this works for left and right nodes, but can't handle the center nodes
+
     def test_tree_with_three_nodes(self):
+        # test tree with three-nodes
+        # this works for left and right nodes, but can't handle the center nodes
+
         root = lca.Node(79)
         root.left = lca.Node(389)
         root.right = lca.Node(2)
@@ -374,6 +404,7 @@ class TestLCA(unittest.TestCase):
     def test_lca_for_dag(self):
         # this is the tree test for DAGs
         # since I construct graphs differently, none of the tree test will work with graphs
+        
         root = lca.Node("G")
         root.left = lca.Node("D")
         root.right = lca.Node("F")
